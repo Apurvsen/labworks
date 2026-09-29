@@ -1,0 +1,797 @@
+/* =========================
+   RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #07111f;
+    color: white;
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.navbar {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    padding: 22px 7%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    z-index: 1000;
+
+    background: rgba(5, 10, 20, 0.35);
+
+    backdrop-filter: blur(12px);
+
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.logo {
+    font-size: 28px;
+
+    font-weight: bold;
+
+    letter-spacing: 3px;
+
+    color: white;
+}
+
+.navbar ul {
+    display: flex;
+
+    gap: 35px;
+
+    list-style: none;
+}
+
+.navbar a {
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 15px;
+
+    transition: 0.3s;
+}
+
+.navbar a:hover {
+    color: #70d6ff;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+
+    padding-left: 9%;
+
+    position: relative;
+
+    background-image:
+        linear-gradient(
+            90deg,
+            rgba(3, 8, 20, 0.80),
+            rgba(3, 8, 20, 0.25)
+        ),
+        url("assets/mountain.svg");
+
+    background-size: cover;
+
+    background-position: center;
+
+    background-attachment: fixed;
+
+    overflow: hidden;
+}
+
+
+/* Animated light effect */
+
+.hero::after {
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    background: rgba(70, 150, 255, 0.15);
+
+    border-radius: 50%;
+
+    filter: blur(100px);
+
+    right: 10%;
+
+    bottom: -150px;
+
+    animation: glow 5s infinite alternate;
+}
+
+
+.hero-content {
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 750px;
+
+    animation: fadeUp 1.5s ease;
+}
+
+.small-title,
+.section-small {
+    font-size: 13px;
+
+    letter-spacing: 4px;
+
+    color: #78d8ff;
+
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font-size: clamp(50px, 7vw, 95px);
+
+    line-height: 0.98;
+
+    margin-bottom: 30px;
+
+    letter-spacing: -3px;
+
+    text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.description {
+    max-width: 550px;
+
+    font-size: 18px;
+
+    line-height: 1.8;
+
+    color: #d8e2ee;
+
+    margin-bottom: 35px;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.explore-btn {
+    display: inline-block;
+
+    padding: 15px 32px;
+
+    border: 1px solid rgba(255,255,255,0.5);
+
+    border-radius: 30px;
+
+    color: white;
+
+    text-decoration: none;
+
+    background: rgba(255,255,255,0.12);
+
+    backdrop-filter: blur(10px);
+
+    transition: 0.4s;
+}
+
+.explore-btn:hover {
+    background: white;
+
+    color: #07111f;
+
+    transform: translateY(-5px);
+
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+}
+
+
+/* =========================
+   PLACES
+========================= */
+
+.places {
+    padding: 120px 7%;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #163d5d,
+            #07111f 55%
+        );
+}
+
+.places h2,
+.about h2 {
+    font-size: 50px;
+
+    margin-bottom: 15px;
+}
+
+.section-description {
+    color: #9eafc2;
+
+    margin-bottom: 60px;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.cards {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 30px;
+
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 350px;
+
+    text-align: left;
+
+    background: rgba(255,255,255,0.06);
+
+    border: 1px solid rgba(255,255,255,0.15);
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    backdrop-filter: blur(10px);
+
+    transition: 0.5s;
+
+    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+}
+
+.card:hover {
+    transform: translateY(-15px);
+
+    border-color: rgba(120,216,255,0.7);
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,0.45);
+}
+
+
+/* =========================
+   CARD IMAGE
+========================= */
+
+.image-container {
+    width: 100%;
+
+    height: 240px;
+
+    overflow: hidden;
+}
+
+.image-container img {
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform 0.8s ease;
+}
+
+.card:hover img {
+    transform: scale(1.12);
+}
+
+
+/* =========================
+   CARD CONTENT
+========================= */
+
+.card-content {
+    padding: 28px;
+}
+
+.card-content span {
+    color: #78d8ff;
+
+    font-size: 13px;
+
+    letter-spacing: 2px;
+}
+
+.card h3 {
+    font-size: 26px;
+
+    margin: 10px 0 15px;
+}
+
+.card p {
+    color: #aebdca;
+
+    line-height: 1.7;
+
+    margin-bottom: 20px;
+}
+
+.card a {
+    color: #78d8ff;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+.card a:hover {
+    letter-spacing: 2px;
+}
+
+
+/* =========================
+   ABOUT
+========================= */
+
+.about {
+    min-height: 600px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 100px 10%;
+
+    background-image:
+        linear-gradient(
+            rgba(4,10,20,0.78),
+            rgba(4,10,20,0.88)
+        ),
+        url("assets/lake.svg");
+
+    background-size: cover;
+
+    background-position: center;
+
+    background-attachment: fixed;
+}
+
+.about-content {
+    max-width: 700px;
+}
+
+.about h2 {
+    font-size: 65px;
+
+    line-height: 1.05;
+}
+
+.about p:last-child {
+    color: #c4d0dc;
+
+    font-size: 18px;
+
+    line-height: 1.9;
+
+    margin-top: 25px;
+}
+
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact {
+    padding: 100px 20px;
+
+    text-align: center;
+
+    background: #050b14;
+}
+
+.contact h2 {
+    font-size: 45px;
+
+    margin-bottom: 15px;
+}
+
+.contact p {
+    color: #aebdca;
+
+    margin-bottom: 30px;
+}
+
+.contact button {
+    padding: 14px 35px;
+
+    border: none;
+
+    border-radius: 30px;
+
+    background: #78d8ff;
+
+    color: #06101d;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.4s;
+}
+
+.contact button:hover {
+    transform: scale(1.08);
+
+    box-shadow: 0 10px 30px rgba(120,216,255,0.4);
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    padding: 25px;
+
+    text-align: center;
+
+    color: #738395;
+
+    background: #03070d;
+
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(60px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+@keyframes glow {
+
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(-100px, -80px);
+    }
+
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+    .navbar {
+        padding: 18px 5%;
+    }
+
+    .navbar ul {
+        gap: 15px;
+    }
+
+    .navbar a {
+        font-size: 12px;
+    }
+
+    .hero {
+        padding: 0 8%;
+    }
+
+    .hero h1 {
+        font-size: 52px;
+    }
+
+    .places h2,
+    .about h2 {
+        font-size: 40px;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 400px;
+    }
+
+}
+
+/* Match the sections and class names used by index.html */
+.hero {
+    min-height: 680px;
+    height: 100svh;
+    padding: 120px 9% 70px;
+    background-image:
+        linear-gradient(100deg, rgba(3, 8, 20, 0.88), rgba(3, 8, 20, 0.18)),
+        url("assets/mountain.svg"),
+        linear-gradient(135deg, #102b46, #07111f 60%, #19415a);
+    background-size: cover;
+    background-position: center;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse at 75% 28%, rgba(92, 207, 255, 0.22), transparent 38%);
+    animation: ambientShift 8s ease-in-out infinite alternate;
+}
+
+.hero h1 {
+    max-width: 800px;
+    background: linear-gradient(110deg, #fff 35%, #9ae5ff 85%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.hero-content p {
+    max-width: 550px;
+    color: #d8e2ee;
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 35px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 15px 32px;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 30px;
+    color: #fff;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+}
+
+.btn:hover {
+    transform: translateY(-5px);
+    color: #07111f;
+    background: #fff;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.gallery {
+    padding: 110px 7%;
+    text-align: center;
+    background: radial-gradient(ellipse at 50% 0%, #163d5d 0, #0a1b2b 48%, #07111f 100%);
+}
+
+.gallery h2,
+.contact h2 {
+    margin-bottom: 45px;
+    font-size: clamp(36px, 5vw, 52px);
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 28px;
+}
+
+.card {
+    width: min(100%, 350px);
+    text-align: left;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+    transition: transform 0.4s, border-color 0.4s, box-shadow 0.4s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(120, 216, 255, 0.7);
+    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.42);
+}
+
+.card img {
+    display: block;
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+}
+
+.card:hover img {
+    transform: scale(1.08);
+}
+
+.card-content button,
+.contact .contact-btn {
+    padding: 12px 24px;
+    border: 0;
+    border-radius: 25px;
+    color: #06101d;
+    background: #78d8ff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card-content button:hover,
+.contact .contact-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(120, 216, 255, 0.3);
+}
+
+.about {
+    min-height: 560px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 35px;
+    background-image:
+        linear-gradient(90deg, rgba(4, 10, 20, 0.9), rgba(4, 10, 20, 0.55)),
+        url("assets/lake.svg"),
+        linear-gradient(135deg, #102b46, #07111f);
+}
+
+.about h2 {
+    flex: 1 1 280px;
+    font-size: clamp(40px, 5vw, 62px);
+}
+
+.about-box {
+    flex: 1 1 340px;
+    max-width: 600px;
+    padding: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 18px;
+    background: rgba(7, 17, 31, 0.58);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.about-box p {
+    color: #d3deea;
+    font-size: 17px;
+    line-height: 1.9;
+}
+
+.contact {
+    background: radial-gradient(ellipse at center top, #12334d, #050b14 70%);
+}
+
+.contact-box {
+    width: min(100%, 520px);
+    margin: 0 auto;
+    padding: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.contact-box p {
+    margin-bottom: 16px;
+}
+
+.contact .contact-btn {
+    margin-top: 10px;
+}
+
+@keyframes ambientShift {
+    from { opacity: 0.45; transform: scale(1); }
+    to { opacity: 1; transform: scale(1.12); }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        min-height: 620px;
+        background-attachment: scroll;
+    }
+
+    .about {
+        background-attachment: scroll;
+    }
+
+        .about-box {
+        flex-basis: 100%;
+    }
+}
+
+/* Image upload controls and user-selected backgrounds */
+.image-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 28px;
+}
+
+.image-upload {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.38);
+    border-radius: 22px;
+    color: #fff;
+    background: rgba(5, 12, 24, 0.72);
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.25s;
+}
+
+.image-upload:hover {
+    background: rgba(64, 157, 195, 0.82);
+    transform: translateY(-2px);
+}
+
+.image-upload input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
+
+.image-upload:focus-within {
+    outline: 2px solid #9ae5ff;
+    outline-offset: 3px;
+}
+
+.card-upload {
+    margin-top: 2px;
+}
+
+.hero.has-custom-background,
+.about.has-custom-background {
+    background-image:
+        linear-gradient(100deg, rgba(3, 8, 20, 0.82), rgba(3, 8, 20, 0.24)),
+        var(--custom-background-image);
+}

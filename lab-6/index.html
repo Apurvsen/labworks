@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Beautiful Web Page</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+
+<!-- Navigation Bar -->
+<header>
+    <nav class="navbar">
+
+        <div class="logo">
+            My Website
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+
+    </nav>
+</header>
+
+
+<!-- Hero Section -->
+<section id="home" class="hero">
+
+    <div class="hero-content">
+
+        <h1>Welcome to My Website</h1>
+
+        <p>
+            A beautiful webpage designed using HTML and external CSS
+            with animations, images, colors and modern UI.
+        </p>
+
+        <a href="#gallery" class="btn">
+            Explore More
+        </a>
+
+        <div class="image-tools" aria-label="Customize page images">
+            <label class="image-upload">
+                Set hero background
+                <input type="file" accept="image/*" data-image-target="hero" aria-label="Upload hero background image">
+            </label>
+            <label class="image-upload">
+                Set About background
+                <input type="file" accept="image/*" data-image-target="about" aria-label="Upload About background image">
+            </label>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- About Section -->
+<section id="about" class="about">
+
+    <h2>About Our Website</h2>
+
+    <div class="about-box">
+
+        <p>
+            This webpage demonstrates how external CSS can be used
+            to create an attractive and modern user interface.
+            It includes background images, colorful text,
+            borders, shadows, animations and smooth hover effects.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- Gallery Section -->
+<section id="gallery" class="gallery">
+
+    <h2>Beautiful Gallery</h2>
+
+    <div class="card-container">
+
+        <div class="card">
+
+            <img src="assets/nature.svg" alt="Sunlit forest and hills">
+
+            <div class="card-content">
+                <h3>Beautiful Nature</h3>
+
+                <p>
+                    Enjoy the beauty of nature and peaceful surroundings.
+                </p>
+
+                <button>Read More</button>
+                <label class="image-upload card-upload">
+                    Change card image
+                    <input type="file" accept="image/*" data-image-target="card" aria-label="Upload nature card image">
+                </label>
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <img src="assets/mountain.svg" alt="Snow-capped mountain beneath a bright sky">
+
+            <div class="card-content">
+                <h3>Mountain View</h3>
+
+                <p>
+                    Explore amazing mountains and beautiful landscapes.
+                </p>
+
+                <button>Read More</button>
+                <label class="image-upload card-upload">
+                    Change card image
+                    <input type="file" accept="image/*" data-image-target="card" aria-label="Upload mountain card image">
+                </label>
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <img src="assets/ocean.svg" alt="Blue ocean waves at sunset">
+
+            <div class="card-content">
+                <h3>Ocean View</h3>
+
+                <p>
+                    Experience the calm and relaxing beauty of the ocean.
+                </p>
+
+                <button>Read More</button>
+                <label class="image-upload card-upload">
+                    Change card image
+                    <input type="file" accept="image/*" data-image-target="card" aria-label="Upload ocean card image">
+                </label>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- Contact Section -->
+<section id="contact" class="contact">
+
+    <h2>Contact Us</h2>
+
+    <div class="contact-box">
+
+        <p>Email: example@gmail.com</p>
+        <p>Phone: +91 98765 43210</p>
+
+        <button class="contact-btn">
+            Contact Now
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- Footer -->
+<footer>
+
+    <p>
+        © 2026 My Website | Designed using HTML & CSS
+    </p>
+
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

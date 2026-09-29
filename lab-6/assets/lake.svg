@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="Quiet alpine lake reflecting forested mountains">
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#558eaa"/><stop offset="1" stop-color="#d7c99e"/></linearGradient>
+    <linearGradient id="water" x2="0" y2="1"><stop stop-color="#588e91"/><stop offset="1" stop-color="#172f40"/></linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  <circle cx="260" cy="190" r="58" fill="#ffe0a0" opacity=".85"/>
+  <path d="M0 510 180 300l140 150 190-230 210 250 180-220 300 270v280H0Z" fill="#405d62"/>
+  <path d="m340 450 170-230 120 145-88-38-60 54-55-52zM720 470l180-220 120 151-86-35-61 52-55-44z" fill="#d6e0d5" opacity=".85"/>
+  <path d="M0 500q150-70 300 0t300 0 300 0 300 0v300H0Z" fill="url(#water)"/>
+  <path d="M180 540h840M260 585h690M100 642h980M310 700h580" stroke="#b3d5c7" stroke-width="8" opacity=".42"/>
+  <path d="M0 485q100-60 200 0t200 0 200 0 200 0 200 0 200 0" fill="none" stroke="#223f43" stroke-width="34"/>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="Sunlit green forest and rolling hills">
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#75c9e8"/><stop offset="1" stop-color="#f8d59a"/></linearGradient>
+    <linearGradient id="hill" x2="0" y2="1"><stop stop-color="#78b879"/><stop offset="1" stop-color="#285c52"/></linearGradient>
+    <linearGradient id="sun" x2="0" y2="1"><stop stop-color="#fff3bd"/><stop offset="1" stop-color="#ffb96b"/></linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  <circle cx="900" cy="190" r="86" fill="url(#sun)"/>
+  <path d="M0 470 190 300l160 150 190-210 220 240 170-170 270 200v290H0Z" fill="#648a82" opacity=".75"/>
+  <path d="M0 500q210-150 430-15t400-5q190-100 370 20v300H0Z" fill="url(#hill)"/>
+  <path d="M0 590q230-135 465-20t390 0q180-90 345 10v220H0Z" fill="#244c45"/>
+  <g fill="#183c38"><path d="m120 600 78-210 78 210zM250 640l96-260 96 260zM840 600l88-238 88 238zM990 645l105-285 105 285z"/></g>
+  <g fill="#39745a"><path d="m120 535 78-210 78 210zM250 575l96-260 96 260zM840 535l88-238 88 238zM990 580l105-285 105 285z"/></g>
+</svg>

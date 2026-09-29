@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="Ocean waves glowing beneath a warm sunset">
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#342f64"/><stop offset=".48" stop-color="#e47e82"/><stop offset="1" stop-color="#ffc47d"/></linearGradient>
+    <linearGradient id="sea" x2="0" y2="1"><stop stop-color="#315d83"/><stop offset="1" stop-color="#102b46"/></linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sky)"/>
+  <circle cx="830" cy="330" r="105" fill="#ffd58e"/>
+  <path d="M0 435q140-35 280 0t280 0 280 0 280 0 280 0v365H0Z" fill="url(#sea)"/>
+  <path d="M0 510q120-48 240 0t240 0 240 0 240 0 240 0" fill="none" stroke="#a4d3d7" stroke-width="9" opacity=".8"/>
+  <path d="M0 605q160-45 320 0t320 0 320 0 320 0" fill="none" stroke="#7fb8c6" stroke-width="7" opacity=".7"/>
+  <path d="M0 705q115-38 230 0t230 0 230 0 230 0 280 0" fill="none" stroke="#4d8ca2" stroke-width="8" opacity=".65"/>
+  <path d="M730 447h200" stroke="#ffe3aa" stroke-width="14" opacity=".8"/>
+  <path d="M780 485h120M750 530h170M820 575h100" stroke="#ffd98e" stroke-width="7" opacity=".55"/>
+</svg>
