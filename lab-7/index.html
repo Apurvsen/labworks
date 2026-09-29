@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Calculator</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #e9eefb, #d9f1ee);
+    color: #14213d;
+}
+
+.calculator {
+    width: 100%;
+    max-width: 450px;
+    background: white;
+    padding: 25px;
+    border-radius: 25px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.2);
+}
+
+h1 {
+    margin: 0;
+}
+
+.subtitle {
+    color: #667085;
+}
+
+.display {
+    background: #f5f7fd;
+    padding: 18px;
+    border-radius: 18px;
+    margin: 20px 0;
+    text-align: right;
+}
+
+.expression {
+    color: #667085;
+    min-height: 25px;
+}
+
+.result {
+    font-size: 40px;
+    font-weight: bold;
+    color: #0f8b7d;
+    word-break: break-all;
+}
+
+.error {
+    color: #d62828 !important;
+    font-size: 18px;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #d6ddee;
+    border-radius: 12px;
+    font-size: 16px;
+}
+
+.input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 6px;
+}
+
+fieldset {
+    border: none;
+    margin-top: 20px;
+    padding: 0;
+}
+
+.operations {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 8px;
+}
+
+.operations input {
+    display: none;
+}
+
+.operations label {
+    text-align: center;
+    padding: 12px 5px;
+    background: #f5f7fd;
+    border: 1px solid #d6ddee;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.operations label b {
+    display: block;
+    font-size: 24px;
+}
+
+.operations input:checked + label {
+    background: #3d5afe;
+    color: white;
+}
+
+.actions {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+button {
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.calculate {
+    border: none;
+    background: #3d5afe;
+    color: white;
+}
+
+.clear {
+    background: white;
+    border: 1px solid #ccc;
+}
+
+.extra-buttons {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.extra-buttons button {
+    border: 1px solid #d6ddee;
+    background: #f5f7fd;
+}
+
+.history {
+    margin-top: 25px;
+    border-top: 1px solid #ddd;
+    padding-top: 15px;
+}
+
+.history ul {
+    padding: 0;
+    list-style: none;
+}
+
+.history li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px dashed #ddd;
+}
+
+.stats {
+    margin-top: 15px;
+    padding: 12px;
+    background: #f5f7fd;
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+.dark {
+    background: #101828;
+    color: white;
+}
+
+.dark .calculator {
+    background: #1d2939;
+}
+
+.dark .display,
+.dark input,
+.dark .operations label,
+.dark .extra-buttons button,
+.dark .stats {
+    background: #101828;
+    color: white;
+    border-color: #344054;
+}
+
+.dark .subtitle,
+.dark .expression {
+    color: #98a2b3;
+}
+
+.dark .clear {
+    background: #1d2939;
+    color: white;
+}
+
+@media(max-width:500px) {
+    .calculator {
+        margin: 15px;
+    }
+
+    .input-row {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="calculator">
+
+    <h1>Smart Calculator</h1>
+
+    <p class="subtitle">
+        Calculate, save history and use extra functions.
+    </p>
+
+    <div class="display">
+
+        <div class="expression" id="expression">
+            Ready
+        </div>
+
+        <div class="result" id="result">
+            0
+        </div>
+
+    </div>
+
+    <form id="calculatorForm">
+
+        <div class="input-row">
+
+            <div>
+                <label>First Number</label>
+                <input
+                    type="number"
+                    id="number1"
+                    step="any"
+                    placeholder="Enter number"
+                >
+            </div>
+
+            <div>
+                <label>Second Number</label>
+                <input
+                    type="number"
+                    id="number2"
+                    step="any"
+                    placeholder="Enter number"
+                >
+            </div>
+
+        </div>
+
+        <fieldset>
+
+            <legend>Operation</legend>
+
+            <div class="operations">
+
+                <input type="radio" name="operation"
+                       id="add" value="+" checked>
+                <label for="add">
+                    <b>+</b>Add
+                </label>
+
+                <input type="radio" name="operation"
+                       id="sub" value="-">
+                <label for="sub">
+                    <b>−</b>Subtract
+                </label>
+
+                <input type="radio" name="operation"
+                       id="mul" value="×">
+                <label for="mul">
+                    <b>×</b>Multiply
+                </label>
+
+                <input type="radio" name="operation"
+                       id="div" value="÷">
+                <label for="div">
+                    <b>÷</b>Divide
+                </label>
+
+            </div>
+
+        </fieldset>
+
+        <div class="actions">
+
+            <button class="calculate" type="submit">
+                Calculate
+            </button>
+
+            <button class="clear" type="button" id="clear">
+                Clear
+            </button>
+
+        </div>
+
+    </form>
+
+    <!-- EXTRA JAVASCRIPT FUNCTIONS -->
+
+    <div class="extra-buttons">
+
+        <button onclick="percentage()">
+            %
+        </button>
+
+        <button onclick="square()">
+            x²
+        </button>
+
+        <button onclick="squareRoot()">
+            √
+        </button>
+
+        <button onclick="swapNumbers()">
+            Swap
+        </button>
+
+        <button onclick="copyResult()">
+            Copy
+        </button>
+
+        <button onclick="toggleTheme()">
+            Theme
+        </button>
+
+    </div>
+
+
+    <div class="history">
+
+        <h3>Calculation History</h3>
+
+        <ul id="historyList"></ul>
+
+        <p id="empty">
+            No calculations yet.
+        </p>
+
+        <div class="stats">
+
+            <b>Statistics</b>
+
+            <br>
+
+            Calculations:
+            <span id="count">0</span>
+
+            <br>
+
+            Last Result:
+            <span id="lastResult">0</span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* ============================
+   GET HTML ELEMENTS
+============================ */
+
+const form = document.getElementById("calculatorForm");
+
+const number1 = document.getElementById("number1");
+
+const number2 = document.getElementById("number2");
+
+const result = document.getElementById("result");
+
+const expression = document.getElementById("expression");
+
+const clearButton = document.getElementById("clear");
+
+const historyList = document.getElementById("historyList");
+
+const empty = document.getElementById("empty");
+
+const count = document.getElementById("count");
+
+const lastResult = document.getElementById("lastResult");
+
+
+let history = [];
+
+
+/* ============================
+   FORMAT NUMBER
+============================ */
+
+function formatNumber(number) {
+
+    return Number(number.toFixed(10));
+
+}
+
+
+/* ============================
+   MAIN CALCULATOR
+============================ */
+
+form.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    result.classList.remove("error");
+
+    if (
+        number1.value === "" ||
+        number2.value === ""
+    ) {
+
+        showError("Enter both numbers.");
+
+        return;
+
+    }
+
+
+    const x = Number(number1.value);
+
+    const y = Number(number2.value);
+
+
+    const operation =
+        document.querySelector(
+            'input[name="operation"]:checked'
+        ).value;
+
+
+    let answer;
+
+
+    switch(operation) {
+
+        case "+":
+            answer = x + y;
+            break;
+
+        case "-":
+            answer = x - y;
+            break;
+
+        case "×":
+            answer = x * y;
+            break;
+
+        case "÷":
+
+            if(y === 0) {
+
+                showError("Cannot divide by zero.");
+
+                return;
+
+            }
+
+            answer = x / y;
+
+            break;
+
+    }
+
+
+    answer = formatNumber(answer);
+
+
+    expression.textContent =
+        `${x} ${operation} ${y} =`;
+
+    result.textContent = answer;
+
+
+    addHistory(
+        `${x} ${operation} ${y}`,
+        answer
+    );
+
+});
+
+
+/* ============================
+   ERROR
+============================ */
+
+function showError(message) {
+
+    expression.textContent = "Error";
+
+    result.textContent = message;
+
+    result.classList.add("error");
+
+}
+
+
+/* ============================
+   HISTORY
+============================ */
+
+function addHistory(calculation, answer) {
+
+    history.unshift({
+
+        calculation: calculation,
+
+        answer: answer
+
+    });
+
+
+    history = history.slice(0, 10);
+
+
+    displayHistory();
+
+}
+
+
+function displayHistory() {
+
+    historyList.innerHTML = "";
+
+
+    history.forEach(function(item) {
+
+        const li = document.createElement("li");
+
+        const left = document.createElement("span");
+
+        const right = document.createElement("span");
+
+
+        left.textContent = item.calculation;
+
+        right.textContent = "= " + item.answer;
+
+
+        li.appendChild(left);
+
+        li.appendChild(right);
+
+        historyList.appendChild(li);
+
+    });
+
+
+    empty.style.display =
+        history.length ? "none" : "block";
+
+
+    count.textContent =
+        history.length;
+
+
+    if(history.length > 0) {
+
+        lastResult.textContent =
+            history[0].answer;
+
+    }
+
+}
+
+
+/* ============================
+   CLEAR
+============================ */
+
+clearButton.addEventListener("click", function() {
+
+    number1.value = "";
+
+    number2.value = "";
+
+    expression.textContent = "Ready";
+
+    result.textContent = "0";
+
+    result.classList.remove("error");
+
+    number1.focus();
+
+});
+
+
+/* ============================
+   PERCENTAGE
+============================ */
+
+function percentage() {
+
+    if(number1.value === "") {
+
+        showError("Enter a number.");
+
+        return;
+
+    }
+
+
+    let value = Number(number1.value);
+
+    let answer = value / 100;
+
+
+    expression.textContent =
+        `${value}%`;
+
+    result.textContent =
+        answer;
+
+}
+
+
+/* ============================
+   SQUARE
+============================ */
+
+function square() {
+
+    if(number1.value === "") {
+
+        showError("Enter a number.");
+
+        return;
+
+    }
+
+
+    let value = Number(number1.value);
+
+    let answer = value * value;
+
+
+    expression.textContent =
+        `${value}²`;
+
+    result.textContent =
+        formatNumber(answer);
+
+}
+
+
+/* ============================
+   SQUARE ROOT
+============================ */
+
+function squareRoot() {
+
+    if(number1.value === "") {
+
+        showError("Enter a number.");
+
+        return;
+
+    }
+
+
+    let value = Number(number1.value);
+
+
+    if(value < 0) {
+
+        showError(
+            "Square root of negative number is invalid."
+        );
+
+        return;
+
+    }
+
+
+    let answer = Math.sqrt(value);
+
+
+    expression.textContent =
+        `√${value}`;
+
+    result.textContent =
+        formatNumber(answer);
+
+}
+
+
+/* ============================
+   SWAP NUMBERS
+============================ */
+
+function swapNumbers() {
+
+    const temp = number1.value;
+
+    number1.value =
+        number2.value;
+
+    number2.value =
+        temp;
+
+}
+
+
+/* ============================
+   COPY RESULT
+============================ */
+
+function copyResult() {
+
+    const text = result.textContent;
+
+
+    navigator.clipboard.writeText(text)
+        .then(function() {
+
+            expression.textContent =
+                "Result copied!";
+
+        })
+        .catch(function() {
+
+            showError("Copy failed.");
+
+        });
+
+}
+
+
+/* ============================
+   DARK / LIGHT MODE
+============================ */
+
+function toggleTheme() {
+
+    document.body.classList.toggle("dark");
+
+}
+
+
+/* ============================
+   KEYBOARD SUPPORT
+============================ */
+
+document.addEventListener("keydown", function(event) {
+
+    if(event.key === "Escape") {
+
+        clearButton.click();
+
+    }
+
+});
+
+
+/* ============================
+   SAVE HISTORY IN LOCAL STORAGE
+============================ */
+
+function saveHistory() {
+
+    localStorage.setItem(
+        "calculatorHistory",
+        JSON.stringify(history)
+    );
+
+}
+
+
+function loadHistory() {
+
+    const saved =
+        localStorage.getItem(
+            "calculatorHistory"
+        );
+
+
+    if(saved) {
+
+        history =
+            JSON.parse(saved);
+
+        displayHistory();
+
+    }
+
+}
+
+
+/* Save history whenever history changes */
+
+const originalAddHistory = addHistory;
+
+
+/* Load saved history when page opens */
+
+loadHistory();
+
+</script>
+
+</body>
+</html>
