@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#e9eefb; --bg2:#d9f1ee; --card:#ffffff; --ink:#14213d; --muted:#5d6b88;
+  --line:#d6ddee; --accent:#3d5afe; --accent-ink:#fff; --result:#0f8b7d; --err:#c62f4b; --field:#f5f7fd;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e1424; --bg2:#0b2a2b; --card:#182038; --ink:#eef2ff; --muted:#9aa7c7;
+    --line:#2a3556; --accent:#7c8cff; --accent-ink:#0e1424; --result:#4fd6c3; --err:#ff7a93; --field:#111830;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0e1424; --bg2:#0b2a2b; --card:#182038; --ink:#eef2ff; --muted:#9aa7c7;
+  --line:#2a3556; --accent:#7c8cff; --accent-ink:#0e1424; --result:#4fd6c3; --err:#ff7a93; --field:#111830;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px 16px;
+  font-family:'Sora',system-ui,-apple-system,'Segoe UI',sans-serif; color:var(--ink);
+  background:var(--bg); background-image:linear-gradient(135deg,var(--bg) 0%,var(--bg2) 100%);
+}
+.calc{width:100%; max-width:440px; background:var(--card); border-radius:28px; padding:28px;
+  box-shadow:0 30px 60px -25px rgba(20,33,61,.35); border:1px solid var(--line)}
+h1{font-size:1.35rem; margin:0 0 4px; font-weight:700}
+.sub{margin:0 0 22px; color:var(--muted); font-size:.9rem}
+.display{background:var(--field); border:1px solid var(--line); border-radius:18px; padding:18px 20px; margin-bottom:22px; min-height:104px}
+.expr{color:var(--muted); font-size:.9rem; min-height:1.3em; overflow-wrap:anywhere}
+.value{font-size:2.4rem; font-weight:700; color:var(--result); margin-top:6px; overflow-wrap:anywhere; line-height:1.15}
+.value.error{color:var(--err); font-size:1.1rem; font-weight:600; line-height:1.4}
+.row{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+label.f{display:block; font-size:.85rem; font-weight:600; margin-bottom:6px}
+input[type=number]{
+  width:100%; font:inherit; font-size:1.1rem; color:var(--ink); background:var(--field);
+  border:1.5px solid var(--line); border-radius:14px; padding:13px 14px; outline:none; transition:border-color .15s, box-shadow .15s;
+}
+input[type=number]:focus{border-color:var(--accent); box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 22%,transparent)}
+fieldset{border:0; padding:0; margin:18px 0 0}
+legend{font-size:.85rem; font-weight:600; padding:0; margin-bottom:8px}
+.ops{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+.ops input{position:absolute; opacity:0; pointer-events:none}
+.ops label{
+  display:flex; flex-direction:column; align-items:center; gap:2px; padding:12px 4px; cursor:pointer;
+  background:var(--field); border:1.5px solid var(--line); border-radius:14px; font-size:.72rem; color:var(--muted);
+  transition:transform .12s, background .15s, border-color .15s, color .15s; user-select:none;
+}
+.ops label b{font-size:1.6rem; line-height:1; color:var(--ink); font-weight:600}
+.ops label:hover{border-color:var(--accent)}
+.ops input:checked + label{background:var(--accent); border-color:var(--accent); color:var(--accent-ink); transform:translateY(-2px)}
+.ops input:checked + label b{color:var(--accent-ink)}
+.ops input:focus-visible + label{outline:3px solid var(--accent); outline-offset:2px}
+.actions{display:grid; grid-template-columns:2fr 1fr; gap:12px; margin-top:22px}
+button{font:inherit; font-weight:600; font-size:1rem; padding:14px; border-radius:14px; cursor:pointer; border:1.5px solid transparent; transition:transform .1s, filter .15s}
+button:active{transform:scale(.97)}
+button:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+.go{background:var(--accent); color:var(--accent-ink)}
+.go:hover{filter:brightness(1.08)}
+.clear{background:transparent; border-color:var(--line); color:var(--ink)}
+.clear:hover{border-color:var(--accent)}
+.hist{margin-top:24px; border-top:1px solid var(--line); padding-top:16px}
+.hist h2{font-size:.9rem; margin:0 0 8px}
+.hist ul{list-style:none; margin:0; padding:0}
+.hist li{display:flex; justify-content:space-between; gap:12px; padding:8px 0; font-size:.9rem; color:var(--muted); border-bottom:1px dashed var(--line)}
+.hist li:last-child{border-bottom:0}
+.hist li span:last-child{color:var(--ink); font-weight:600; text-align:right; overflow-wrap:anywhere}
+.empty{color:var(--muted); font-size:.85rem; margin:0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main class="calc">
+  <h1>Calculator</h1>
+  <p class="sub">Enter two numbers, pick an operation, and calculate.</p>
+
+  <div class="display" aria-live="polite">
+    <div class="expr" id="expr">Waiting for your numbers</div>
+    <div class="value" id="value">0</div>
+  </div>
+
+  <form id="form" novalidate>
+    <div class="row">
+      <div>
+        <label class="f" for="a">First number</label>
+        <input type="number" id="a" step="any" inputmode="decimal" placeholder="e.g. 12">
+      </div>
+      <div>
+        <label class="f" for="b">Second number</label>
+        <input type="number" id="b" step="any" inputmode="decimal" placeholder="e.g. 4">
+      </div>
+    </div>
+
+    <fieldset>
+      <legend>Operation</legend>
+      <div class="ops">
+        <input type="radio" name="op" id="add" value="+" checked><label for="add"><b>+</b>Add</label>
+        <input type="radio" name="op" id="sub" value="-"><label for="sub"><b>−</b>Subtract</label>
+        <input type="radio" name="op" id="mul" value="×"><label for="mul"><b>×</b>Multiply</label>
+        <input type="radio" name="op" id="div" value="÷"><label for="div"><b>÷</b>Divide</label>
+      </div>
+    </fieldset>
+
+    <div class="actions">
+      <button type="submit" class="go">Calculate</button>
+      <button type="button" class="clear" id="clear">Clear</button>
+    </div>
+  </form>
+
+  <section class="hist">
+    <h2>Recent calculations</h2>
+    <ul id="list"></ul>
+    <p class="empty" id="empty">Your results will appear here.</p>
+  </section>
+</main>
+
+<script>
+(function(){
+  var a=document.getElementById('a'), b=document.getElementById('b');
+  var expr=document.getElementById('expr'), value=document.getElementById('value');
+  var list=document.getElementById('list'), empty=document.getElementById('empty');
+  var history=[];
+
+  function fmt(n){ return String(parseFloat(n.toPrecision(12))); }
+
+  function showError(msg){
+    value.textContent=msg; value.classList.add('error');
+  }
+
+  document.getElementById('form').addEventListener('submit', function(e){
+    e.preventDefault();
+    value.classList.remove('error');
+    if(a.value.trim()==='' || b.value.trim()===''){
+      expr.textContent='Missing input';
+      showError('Enter both numbers to calculate.');
+      return;
+    }
+    var x=Number(a.value), y=Number(b.value);
+    var op=document.querySelector('input[name="op"]:checked').value;
+    var r;
+    switch(op){
+      case '+': r=x+y; break;
+      case '-': r=x-y; break;
+      case '×': r=x*y; break;
+      case '÷':
+        if(y===0){ expr.textContent=fmt(x)+' ÷ 0'; showError('Division by zero is undefined. Change the second number.'); return; }
+        r=x/y; break;
+    }
+    var text=fmt(x)+' '+(op==='-'?'−':op)+' '+fmt(y);
+    expr.textContent=text+' =';
+    value.textContent=fmt(r);
+    history.unshift({t:text, r:fmt(r)});
+    history=history.slice(0,5);
+    render();
+  });
+
+  document.getElementById('clear').addEventListener('click', function(){
+    a.value=''; b.value='';
+    document.getElementById('add').checked=true;
+    expr.textContent='Waiting for your numbers';
+    value.textContent='0'; value.classList.remove('error');
+    a.focus();
+  });
+
+  function render(){
+    list.innerHTML='';
+    history.forEach(function(h){
+      var li=document.createElement('li');
+      var l=document.createElement('span'); l.textContent=h.t;
+      var r=document.createElement('span'); r.textContent='= '+h.r;
+      li.appendChild(l); li.appendChild(r); list.appendChild(li);
+    });
+    empty.style.display=history.length?'none':'block';
+  }
+})();
+</script>
+</body>
+</html>
